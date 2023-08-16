@@ -3,8 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
     <title>Rodrigo Silva</title>
 </head>
 <body>
+    <header class="header">
+        <nav>
+            <ul>
+                <li>
+                    <a href="#home">Home</a>
+                </li>
+                <li>
+                    <a href="#projects">Projects</a>
+                </li>
+                <li>
+                    <a href="#about">About</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main id="main-container">
+        <div class="pages" id="home">
+            <span>Rodrigo Silva</span>
+        </div>
+        <div class="pages" id="projects">
+            <div id="projects-list"></div>
+        </div>
+        <div class="pages" id="about">
+            <div id="text-container">
+                <p>
+                    I am a dedicated front-end/mobile developer with expertise in HTML, CSS, JavaScript, TypeScript, React, 
+                    and React Native. On a daily basis, I leverage these technologies to create user-friendly web and mobile 
+                    experiences. I am also proficient in working with databases, having experience with PostgreSQL and Firebase. 
+                    I have also a background as a back-end developer, having worked with Java and Python.
+                </p>
+                <p>
+                    In addition to my technical skills, I have experience working in agile teams, collaborating effectively to 
+                    deliver high-quality projects within dynamic and fast-paced environments. 
+                    Throughout my career, I have been driven by a passion for technology and a desire to create impactful 
+                    solutions. I thrive in collaborative environments and I am always eager to learn and adapt to new challenges.
+                </p>
+            </div>
+        </div>
+        <div id="scroll-icon-container" onclick="">
+            <img src="./images/mouse-scroll.png">
+            <span>SCROLL DOWN</span>
+        </div>
+        <canvas id="canvas"></canvas>
+    </main>
+    <script src="./index.js"></script>
 </body>
 </html>

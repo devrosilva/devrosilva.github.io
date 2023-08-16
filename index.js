@@ -68,16 +68,16 @@ class Ball{
         return balls; 
     }
 }
- 
+
 const balls = Ball.generateBalls(30);
-function run(){
+function generateBackgroundAnimation(){
     ctx.clearRect(0, 0, innerWidth, innerHeight);
     for(let i = 0; i < balls.length; i++){
         balls[i].update();
     }
-    requestAnimationFrame(run);
+    requestAnimationFrame(generateBackgroundAnimation);
 }
-run();
+generateBackgroundAnimation();
 
 const createProjectsThumbnails = () => {
     return Object.keys(projectsList).forEach(key => {
@@ -114,6 +114,13 @@ const createProjectsThumbnails = () => {
 }
 createProjectsThumbnails();
 
+const updateCurrentPage = (page, position) => {
+    document.getElementById(`${currentPage}Header`).classList.remove("activeHeader");
+    document.getElementById(`${page}Header`).classList.add("activeHeader");
+    currentPage = page;
+    window.scrollTo({top: position, behavior: 'smooth'});
+}
+
 window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -122,53 +129,33 @@ window.addEventListener('resize', () => {
 window.addEventListener('wheel', e => {
     if(e.deltaY > 0){
         if(currentPage === 'home') {
-            window.scrollTo({top: window.innerHeight + 1, behavior: 'smooth'});
-            currentPage = 'projects';
+            updateCurrentPage('projects', window.innerHeight + 1);
         }
         else if(currentPage === 'projects') {
-            window.scrollTo({top: window.innerHeight * 2 + 1, behavior: 'smooth'});
-            currentPage = 'about';
+            updateCurrentPage('about', window.innerHeight * 2 + 1);
         }
     }
     else{
         if(currentPage === 'projects') {
-            window.scrollTo({top: 0, behavior: 'smooth'});
-            currentPage = 'home';
+            updateCurrentPage('home', 0);
         }
         else if(currentPage === 'about') {
-            window.scrollTo({top: window.innerHeight + 1, behavior: 'smooth'});
-            currentPage = 'projects';
+            updateCurrentPage('projects', window.innerHeight + 1);
         }
     }
 })
 
-mainContainer.addEventListener('scroll', e => {
-    setTimeout(() => {
-        if(e.deltaY > 0){
-            if(currentPage === 'home') {
-                window.scrollTo({top: window.innerHeight + 1, behavior: 'smooth'});
-                currentPage = 'projects';
-            }
-            else if(currentPage === 'projects') {
-                window.scrollTo({top: window.innerHeight * 2 + 1, behavior: 'smooth'});
-                currentPage = 'about';
-            }
-        }
-        else{
-            if(currentPage === 'projects') {
-                window.scrollTo({top: 0, behavior: 'smooth'});
-                currentPage = 'home';
-            }
-            else if(currentPage === 'about') {
-                window.scrollTo({top: window.innerHeight + 1, behavior: 'smooth'});
-                currentPage = 'projects';
-            }
-        }
-      }, 1000);
+window.addEventListener('click', e => {
+    const target = e.originalTarget?.id.split('Header')[0];
+    if(pages.includes(target)){
+        let newCurrentPage = 0;
+        if(target === 'projects') newCurrentPage = window.innerHeight + 1;
+        else if(target === 'about') newCurrentPage = window.innerHeight * 2 + 1;
+        updateCurrentPage(target, newCurrentPage);
+    }
 })
 
-scrollIcon.addEventListener('click', e => {
-    window.scrollTo({top: window.innerHeight + 1, behavior: 'smooth'});
-    currentPage = 'projects';
+scrollIcon.addEventListener('click', () => {
+    updateCurrentPage('projects', window.innerHeight + 1);
 })
 

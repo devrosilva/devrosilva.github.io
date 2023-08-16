@@ -1,18 +1,28 @@
 /*Tag selectors*/
 body{
+    min-width: 400px;
     color: white;
     font-family: 'Poppins', sans-serif;
+    overflow: hidden;
 }
+
 header{
     position: fixed;
     top: 0;
     right: 0;
-    margin: 20px;
+    margin: 0 20px;
     font-size: 25px;
 }
-header a{
-    text-decoration: none;
-    color: white;
+header ul{
+    display: flex;
+    list-style: none;
+}
+header ul li {
+    margin: 0 10px;
+}
+header ul li:hover{
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 canvas {
@@ -26,32 +36,13 @@ canvas {
     background-color: black;
 }
 
-/*Claass selectors*/ 
+/*Class selectors*/
 .pages{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-}
-
-.header ul {
-    display: flex;
-    list-style: none;
-}
-
-.header ul li {
-    margin: 0 10px;
-}
-  
-@media screen and (min-width: 550px) {
-    .header ul {
-        width: auto;
-        margin-top: 0;
-}
-    .header .cta-contact {
-        order: 1;
-    }
 }
 
 .hide{
@@ -62,8 +53,12 @@ canvas {
     display: block;
 }
 
+.activeHeader{
+    text-decoration: underline;
+}
+
 /*ID selectors*/
-#home span{
+#author-name{
     font-size: 60px;
 }
 
@@ -95,4 +90,20 @@ canvas {
     width: 50%;
     text-align: justify;
     font-size: 18px;
+}
+
+/*Media queries*/
+@media screen and (max-width: 750px) {
+    header{
+        font-size: 20px;
+    }
+
+    #author-name{
+        font-size: 40px;
+    }
+
+    #text-container{
+        width: 90%;
+        font-size: 16px;
+    }
 }

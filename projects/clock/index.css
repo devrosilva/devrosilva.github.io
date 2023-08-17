@@ -1,0 +1,17 @@
+html{
+    background: #018DED url(https://unsplash.it/1500/1000?image=881&blur=5);
+    background-size: cover;
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    /* background-color: cadetblue; */
+}
+#clock_container{
+    display: flex;
+    justify-content: center;
+}

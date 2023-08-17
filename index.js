@@ -76,13 +76,9 @@ generateBackgroundAnimation();
 
 const openProjectPopUp = (project) => {
     const modal = document.getElementById('project-modal');
-    const top = window.innerHeight + 200;
+    modal.setAttribute('src', `./projects/${project}/index.html`)
+    const top = window.innerHeight + 1;
     modal.style.top = `${top}px`;
-    
-    const img = document.createElement('img');
-    img.src = project.imageLink;
-
-    modal.appendChild(img);
     modal.classList.remove('hidden');
 }
 
@@ -94,7 +90,7 @@ const createProjectsThumbnails = () => {
         const div = document.createElement('div');
         div.style.position = 'relative';
         div.style.marginRight = '10px';
-        div.addEventListener('click', () => openProjectPopUp(project));
+        div.addEventListener('click', () => openProjectPopUp(key));
         
         const img = document.createElement('img');
         img.src = project.imageLink;
@@ -129,7 +125,6 @@ const closeModal = e => {
     const target = e.target?.id;
     if (modal && (e?.key === "Escape" || ['projects', 'close-button'].includes(target)) && !modal.classList.contains("hidden")) {
         modal.classList.add('hidden');
-        modal.lastElementChild.remove();
     }
 }
 
@@ -173,4 +168,3 @@ document.addEventListener("keydown", closeModal);
 scrollIcon.addEventListener('click', () => {
     updateCurrentPage('projects', window.innerHeight + 1);
 })
-

@@ -1,0 +1,49 @@
+/*Tag selectors*/
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+/*Classes*/
+.key{
+    text-align: center;
+    border: 5px solid #000;
+    background-color: rgba(0, 0, 0, .5);
+    width: 10%;
+    margin: 0 10px;
+}
+.key:focus{
+    border: 5px solid darkgoldenrod;
+}
+.key h1{
+    font-size: large;
+    font-family: 'Courier New', Courier, monospace;
+    color: aliceblue;
+}
+.key p{
+    font-size: small;
+    font-family: 'Courier New', Courier, monospace;
+    color:darkgoldenrod;
+}
+
+/*Ids*/
+#background_img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: cover;
+}
+#key_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    width: 60%;
+}
+*:focus {
+    outline: none;
+}

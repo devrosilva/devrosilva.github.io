@@ -8,7 +8,7 @@ const pages = ['home', 'projects', 'about'];
 const scrollIcon = document.getElementById('scroll-icon-container');
 
 const projectsList = {
-    'drumKit': {
+    'drumkit': {
         'name': 'Drum Kit',
         'description': 'Play the drums using the keyboard keys',
         'imageLink' : './images/drumKit.png'

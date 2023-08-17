@@ -58,7 +58,7 @@ canvas {
     background-color: transparent;
     border: 1px solid transparent;
     border-radius: 15px;
-    scale: 50%
+    scale: 50%;
 }
 
 /* .close-button{

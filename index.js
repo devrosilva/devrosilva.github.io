@@ -64,22 +64,38 @@ class Ball{
     }
 }
 
+//Functions definitions
 const balls = Ball.generateBalls(30);
-function generateBackgroundAnimation(){
+const generateBackgroundAnimation = () => {
     ctx.clearRect(0, 0, innerWidth, innerHeight);
     for(let i = 0; i < balls.length; i++){
         balls[i].update();
     }
     requestAnimationFrame(generateBackgroundAnimation);
 }
-generateBackgroundAnimation();
 
-const openProjectPopUp = (project) => {
+const openProjectModal = (project) => {
     const modal = document.getElementById('project-modal');
-    modal.setAttribute('src', `./projects/${project}/index.html`)
+    modal.setAttribute('src', `./projects/${project}/index.html`);
     const top = window.innerHeight + 1;
     modal.style.top = `${top}px`;
     modal.classList.remove('hidden');
+}
+
+const closeProjectModal = e => {
+    const modal = document.getElementById('project-modal');
+    const target = e.target?.id;
+    if (modal && (e?.key === "Escape" || ['projects', 'close-button'].includes(target)) && !modal.classList.contains("hidden")) {
+        modal.classList.add('hidden');
+        modal.setAttribute('src', '');
+    }
+}
+
+const updateCurrentPage = (page, position) => {
+    document.getElementById(`${currentPage}Header`).classList.remove("activeHeader");
+    document.getElementById(`${page}Header`).classList.add("activeHeader");
+    currentPage = page;
+    window.scrollTo({top: position, behavior: 'smooth'});
 }
 
 const createProjectsThumbnails = () => {
@@ -90,7 +106,8 @@ const createProjectsThumbnails = () => {
         const div = document.createElement('div');
         div.style.position = 'relative';
         div.style.marginRight = '10px';
-        div.addEventListener('click', () => openProjectPopUp(key));
+        div.style.cursor = 'pointer';
+        div.addEventListener('click', () => openProjectModal(key));
         
         const img = document.createElement('img');
         img.src = project.imageLink;
@@ -111,23 +128,12 @@ const createProjectsThumbnails = () => {
         projectsDiv.appendChild(div);
     })
 }
+
+//Initialization
+generateBackgroundAnimation();
 createProjectsThumbnails();
 
-const updateCurrentPage = (page, position) => {
-    document.getElementById(`${currentPage}Header`).classList.remove("activeHeader");
-    document.getElementById(`${page}Header`).classList.add("activeHeader");
-    currentPage = page;
-    window.scrollTo({top: position, behavior: 'smooth'});
-}
-
-const closeModal = e => {
-    const modal = document.getElementById('project-modal');
-    const target = e.target?.id;
-    if (modal && (e?.key === "Escape" || ['projects', 'close-button'].includes(target)) && !modal.classList.contains("hidden")) {
-        modal.classList.add('hidden');
-    }
-}
-
+//Events
 window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -153,7 +159,7 @@ window.addEventListener('wheel', e => {
 })
 
 window.addEventListener('click', e => {
-    const target = e.originalTarget?.id.split('Header')[0];
+    const target = e.target?.id.split('Header')[0];
     if(pages.includes(target)){
         let newCurrentPage = 0;
         if(target === 'projects') newCurrentPage = window.innerHeight + 1;
@@ -162,8 +168,8 @@ window.addEventListener('click', e => {
     }
 })
 
-window.addEventListener('click', closeModal);
-document.addEventListener("keydown", closeModal);
+window.addEventListener('click', closeProjectModal);
+document.addEventListener("keydown", closeProjectModal);
 
 scrollIcon.addEventListener('click', () => {
     updateCurrentPage('projects', window.innerHeight + 1);

@@ -5,12 +5,7 @@ canvas.height = window.innerHeight;
 
 let currentPage = "home";
 const pages = ['home', 'projects', 'about'];
-
-const home = document.getElementById('home');
-const projects = document.getElementById('projects');
-const about = document.getElementById('about');
 const scrollIcon = document.getElementById('scroll-icon-container');
-const mainContainer = document.getElementById('main-container');
 
 const projectsList = {
     'drumKit': {
@@ -79,6 +74,18 @@ function generateBackgroundAnimation(){
 }
 generateBackgroundAnimation();
 
+const openProjectPopUp = (project) => {
+    const modal = document.getElementById('project-modal');
+    const top = window.innerHeight + 200;
+    modal.style.top = `${top}px`;
+    
+    const img = document.createElement('img');
+    img.src = project.imageLink;
+
+    modal.appendChild(img);
+    modal.classList.remove('hidden');
+}
+
 const createProjectsThumbnails = () => {
     return Object.keys(projectsList).forEach(key => {
         const projectsDiv = document.getElementById('projects-list');
@@ -87,17 +94,13 @@ const createProjectsThumbnails = () => {
         const div = document.createElement('div');
         div.style.position = 'relative';
         div.style.marginRight = '10px';
-
-        const a = document.createElement('a');
-        a.href = project.imageLink;
-
+        div.addEventListener('click', () => openProjectPopUp(project));
+        
         const img = document.createElement('img');
         img.src = project.imageLink;
         img.width = Math.floor(window.innerWidth / 100 * 20);
         img.height = Math.floor(window.innerWidth / 100 * 10);
-        
-        a.appendChild(img)
-        div.appendChild(a);
+        div.appendChild(img);
 
         const textDiv = document.createElement('div');
         textDiv.textContent = project.name;
@@ -119,6 +122,15 @@ const updateCurrentPage = (page, position) => {
     document.getElementById(`${page}Header`).classList.add("activeHeader");
     currentPage = page;
     window.scrollTo({top: position, behavior: 'smooth'});
+}
+
+const closeModal = e => {
+    const modal = document.getElementById('project-modal');
+    const target = e.target?.id;
+    if (modal && (e?.key === "Escape" || ['projects', 'close-button'].includes(target)) && !modal.classList.contains("hidden")) {
+        modal.classList.add('hidden');
+        modal.lastElementChild.remove();
+    }
 }
 
 window.addEventListener('resize', () => {
@@ -154,6 +166,9 @@ window.addEventListener('click', e => {
         updateCurrentPage(target, newCurrentPage);
     }
 })
+
+window.addEventListener('click', closeModal);
+document.addEventListener("keydown", closeModal);
 
 scrollIcon.addEventListener('click', () => {
     updateCurrentPage('projects', window.innerHeight + 1);

@@ -4,6 +4,8 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let currentPage = "home";
+let currentTop = 0;
+let isScrolling = false;
 const pages = ['home', 'projects', 'about'];
 const scrollIcon = document.getElementById('scroll-icon-container');
 
@@ -95,7 +97,13 @@ const updateCurrentPage = (page, position) => {
     document.getElementById(`${currentPage}Header`).classList.remove("activeHeader");
     document.getElementById(`${page}Header`).classList.add("activeHeader");
     currentPage = page;
+    currentTop = position;
     window.scrollTo({top: position, behavior: 'smooth'});
+}
+
+const delayScrolling = () => {
+    isScrolling = true;
+    setTimeout(() => isScrolling = false, 700);
 }
 
 const createProjectsThumbnails = () => {
@@ -140,15 +148,20 @@ window.addEventListener('resize', () => {
 })
 
 window.addEventListener('wheel', e => {
-    if(e.deltaY > 0){
+    if(isScrolling) {
+        updateCurrentPage(currentPage, currentTop);
+        return;
+    }
+
+    if(!isScrolling && e.deltaY > 0){
         if(currentPage === 'home') {
             updateCurrentPage('projects', window.innerHeight + 1);
         }
         else if(currentPage === 'projects') {
-            updateCurrentPage('about', window.innerHeight * 2 + 1);
+            updateCurrentPage('about', (window.innerHeight * 2) + 1);
         }
     }
-    else{
+    else if (!isScrolling && e.deltaY < 0){
         if(currentPage === 'projects') {
             updateCurrentPage('home', 0);
         }
@@ -156,6 +169,7 @@ window.addEventListener('wheel', e => {
             updateCurrentPage('projects', window.innerHeight + 1);
         }
     }
+    delayScrolling();
 })
 
 window.addEventListener('click', e => {
@@ -172,5 +186,10 @@ window.addEventListener('click', closeProjectModal);
 document.addEventListener("keydown", closeProjectModal);
 
 scrollIcon.addEventListener('click', () => {
+    if(isScrolling) {
+        updateCurrentPage(currentPage, currentTop);
+        return;
+    }
     updateCurrentPage('projects', window.innerHeight + 1);
+    delayScrolling();
 })

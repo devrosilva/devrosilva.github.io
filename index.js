@@ -68,12 +68,12 @@ class Ball{
 
 //Functions definitions
 const balls = Ball.generateBalls(30);
-const generateBackgroundAnimation = () => {
+const generateBackgroundAnimation = balls => {
     ctx.clearRect(0, 0, innerWidth, innerHeight);
     for(let i = 0; i < balls.length; i++){
         balls[i].update();
     }
-    requestAnimationFrame(generateBackgroundAnimation);
+    requestAnimationFrame(() => generateBackgroundAnimation(balls));
 }
 
 const openProjectModal = (project) => {
@@ -138,13 +138,15 @@ const createProjectsThumbnails = () => {
 }
 
 //Initialization
-generateBackgroundAnimation();
+generateBackgroundAnimation(balls);
 createProjectsThumbnails();
 
 //Events
 window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    const resizeBalls = Ball.generateBalls(30);
+    generateBackgroundAnimation(resizeBalls);
 })
 
 window.addEventListener('wheel', e => {

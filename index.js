@@ -18,6 +18,10 @@ const projectsList = {
     'clock': {
         'name': 'Clock',
         'imageLink' : './images/clock.png'
+    },
+    'flexpanels': {
+        'name': 'Flex Panels',
+        'imageLink' : './images/flexpanels.png'
     }
 }
 

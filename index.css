@@ -61,18 +61,26 @@ canvas {
     scale: 50%;
 }
 
-/* .close-button{
-    cursor: pointer;
-    border: none;
-    font-weight: 600;
-    padding: 0.5rem 0.7rem;
-    background: #d7d7d7;
-    border-radius: 50%;
-} */
-
 .hidden {
     display: none;
-} 
+}
+
+.social-midia-container{
+    position: fixed;
+    top: 42%;
+    left: 0;
+    color: white;
+    margin: 10px;
+}
+
+.social-midia-icon{
+    opacity: .6;
+    transition: all .4s ease;
+    margin-bottom: 15px;
+    width: 30px;
+    height: 30px;
+    background: no-repeat;
+}
 
 /*ID selectors*/
 #author-name{
@@ -108,6 +116,10 @@ canvas {
     text-align: justify;
     font-size: 18px;
 }
+
+#instagram-logo{background-image: url('./images/instagram-logo.png');}
+#linkedin-logo{background-image: url('./images/linkedin-logo.png');}
+#twitter-logo{background-image: url('./images/twitter-logo.png');}
 
 /*Media queries*/
 @media screen and (max-width: 750px) {

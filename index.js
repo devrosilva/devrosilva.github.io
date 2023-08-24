@@ -1,13 +1,12 @@
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
 let currentPage = "home";
 let currentTop = 0;
 let isScrolling = false;
+
 const pages = ['home', 'projects', 'about'];
 const scrollIcon = document.getElementById('scroll-icon-container');
+const instagramLogo = document.getElementById('instagram-logo');
+const linkedInLogo = document.getElementById('linkedin-logo');
+const twitterLogo = document.getElementById('twitter-logo');
 
 const projectsList = {
     'drumkit': {
@@ -23,61 +22,6 @@ const projectsList = {
         'name': 'Flex Panels',
         'imageLink' : './images/flexpanels.png'
     }
-}
-
-class Ball{
-    constructor(){
-        const colors = ['#348888', '#22BABB', '#9EF8EE', '#FA7F08', '#F24405']; 
-        const idx = Math.floor(Math.random() * colors.length);
-        const color = colors[idx];
-
-        this._radius = Math.random() * 19 + 1;
-        this._x = Math.random() * innerWidth - this._radius;
-        this._y = Math.random() * innerHeight - this._radius;; 
-        this._dx = Math.random() * 4;
-        this._dy = Math.random() * 4; 
-        this._color = color;
-    }
-
-    draw(){
-        const color = this._color;
-        ctx.beginPath();
-        ctx.arc(this._x, this._y, this._radius, 0, Math.PI * 2, false);
-        ctx.fillStyle = color;
-        ctx.fill();
-    }
-
-    update(){
-        if(this._x + this._radius > innerWidth || this._x - this._radius < 0){
-            this._dx = -this._dx;
-        }
-        if(this._y + this._radius > innerHeight || this._y - this._radius < 0){
-            this._dy = -this._dy;
-        }
-        this._x += this._dx;
-        this._y += this._dy;
-
-        this.draw();
-    }
-
-    static generateBalls(amount){
-        const balls = [];
-        for(let i = 0; i < amount; i++){
-            const ball = new Ball();
-            balls.push(ball);
-        }
-        return balls; 
-    }
-}
-
-//Functions definitions
-const balls = Ball.generateBalls(30);
-const generateBackgroundAnimation = balls => {
-    ctx.clearRect(0, 0, innerWidth, innerHeight);
-    for(let i = 0; i < balls.length; i++){
-        balls[i].update();
-    }
-    requestAnimationFrame(() => generateBackgroundAnimation(balls));
 }
 
 const openProjectModal = (project) => {
@@ -141,18 +85,21 @@ const createProjectsThumbnails = () => {
     })
 }
 
+const handleSocialMediaIcons = e => {
+    if(e.type === 'mouseover'){
+        e.target.style.scale = 1.1;
+        e.target.style.opacity = 1;
+    }
+    else{
+        e.target.style.scale = 1;
+        e.target.style.opacity = 0.6;
+    }
+}
+
 //Initialization
-generateBackgroundAnimation(balls);
 createProjectsThumbnails();
 
 //Events
-window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    const resizeBalls = Ball.generateBalls(30);
-    generateBackgroundAnimation(resizeBalls);
-})
-
 window.addEventListener('wheel', e => {
     if(isScrolling) {
         updateCurrentPage(currentPage, currentTop);
@@ -199,3 +146,10 @@ scrollIcon.addEventListener('click', () => {
     updateCurrentPage('projects', window.innerHeight + 1);
     delayScrolling();
 })
+
+instagramLogo.addEventListener('mouseover', handleSocialMediaIcons);
+instagramLogo.addEventListener('mouseleave', handleSocialMediaIcons);
+linkedInLogo.addEventListener('mouseover', handleSocialMediaIcons);
+linkedInLogo.addEventListener('mouseleave', handleSocialMediaIcons);
+twitterLogo.addEventListener('mouseover', handleSocialMediaIcons);
+twitterLogo.addEventListener('mouseleave', handleSocialMediaIcons);

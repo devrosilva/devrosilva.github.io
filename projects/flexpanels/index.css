@@ -14,20 +14,28 @@ body{
     font-family: 'Amatic SC', cursive;
     font-size: 5em;
     transition: width 0.7s, font-size 0.7s;
+    text-shadow: 1px 1px 8px #000000;
 }
-
 .expanded-panel{
     width: 60%;
     font-size: 10em;
 }
 
-.reduced-panel{
-    width: 15%;
+.top-hidden-text{
+    position: fixed;
+    top: -20%;
+    transition: top 0.7s;
+    font-size: 0.5em;
 }
+.top-visible-text{top: 5%; font-size: 0.5em;}
 
-.custom-panel{
-    width: 20%;
+.bottom-hidden-text{
+    position: fixed;
+    bottom: -20%;
+    transition: bottom 0.7s;
+    font-size: 0.5em;
 }
+.bottom-visible-text{bottom: 5%; font-size: 0.5em;}
 
 .background1 { background-image:url(https://source.unsplash.com/gYl-UtwNg_I/1500x1500); }
 .background2 { background-image:url(https://source.unsplash.com/rFKUFzjPYiQ/1500x1500); }

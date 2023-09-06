@@ -21,7 +21,11 @@ const projectsList = {
     'flexpanels': {
         'name': 'Flex Panels',
         'imageLink' : './images/flexpanels.png'
-    }
+    },
+    'searchbar': {
+        'name': 'Search Bar',
+        'imageLink' : './images/searchbar.png'
+    },
 }
 
 const openProjectModal = (project) => {
@@ -55,33 +59,25 @@ const delayScrolling = () => {
 }
 
 const createProjectsThumbnails = () => {
+    const projects = document.getElementById('projects-list');
     return Object.keys(projectsList).forEach(key => {
-        const projectsDiv = document.getElementById('projects-list');
         const project = projectsList[key];
               
-        const div = document.createElement('div');
-        div.style.position = 'relative';
-        div.style.marginRight = '10px';
-        div.style.cursor = 'pointer';
-        div.addEventListener('click', () => openProjectModal(key));
+        const thumbnail = document.createElement('div');
+        thumbnail.setAttribute('id', 'project-thumbnail');
+        thumbnail.addEventListener('click', () => openProjectModal(key));
         
         const img = document.createElement('img');
         img.src = project.imageLink;
-        img.width = Math.floor(window.innerWidth / 100 * 20);
-        img.height = Math.floor(window.innerWidth / 100 * 10);
-        div.appendChild(img);
+        thumbnail.appendChild(img);
 
-        const textDiv = document.createElement('div');
-        textDiv.textContent = project.name;
-        textDiv.style.position = 'absolute';
-        textDiv.style.backgroundColor = 'rgba(255, 255, 255, 0.7)';
-        textDiv.style.bottom = '8px';
-        textDiv.style.padding = '5px 0';
-        textDiv.style.width = '100%';
-        textDiv.style.textAlign = 'center';
-        div.appendChild(textDiv);
+        const text = document.createElement('div');
+        text.textContent = project.name;
+        text.setAttribute('id', 'project-text')
 
-        projectsDiv.appendChild(div);
+        thumbnail.appendChild(text);
+
+        projects.appendChild(thumbnail);
     })
 }
 

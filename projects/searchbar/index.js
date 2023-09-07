@@ -34,14 +34,15 @@ const clearResultList = (e, element) => {
     }
 }
 
-const createResultList = citiesAndStates => {
+const createResultList = (input, citiesAndStates) => {
     for(city of citiesAndStates){
         const resultChild = document.createElement('div');
         resultChild.classList.add('result-item');
 
+        const regex = new RegExp(input, 'gi');
         const leftText = document.createElement('span');
         leftText.classList.add('result-item-child');
-        leftText.textContent = `${city.city}, ${city.state}`;
+        leftText.insertAdjacentHTML('afterbegin', `${city.city}, ${city.state}`.replace(regex, '<mark>$&</mark>'));
 
         const rightText = document.createElement('span');
         rightText.classList.add('result-item-child');
@@ -61,7 +62,7 @@ const handleInput = (e, citiesArray) => {
     if(input.length < 3) return;
 
     const citiesAndStates = filterArray(input, citiesArray);
-    createResultList(citiesAndStates);
+    createResultList(input, citiesAndStates);
 }
 
 searchBar.addEventListener('input', e => handleInput(e, cities));

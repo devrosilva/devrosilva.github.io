@@ -90,8 +90,6 @@ canvas {
 #scroll-icon-container{
     position: absolute;
     bottom: 0;
-    right: 50%;
-    transform: translate(50%);
     font-size: 20px;
     padding-bottom: 20px;
     cursor: pointer;
@@ -157,7 +155,11 @@ canvas {
     }
 
     #text-container{
-        width: 90%;
+        width: 60%;
         font-size: 16px;
+    }
+
+    #projects-list{
+        grid-template-columns: repeat(2, 1fr);
     }
 }

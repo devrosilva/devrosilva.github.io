@@ -98,7 +98,6 @@ createProjectsThumbnails();
 //Events
 window.addEventListener('wheel', e => {
     if(isScrolling) {
-        updateCurrentPage(currentPage, currentTop);
         return;
     }
 
@@ -130,11 +129,29 @@ window.addEventListener('click', e => {
         updateCurrentPage(target, newCurrentPage);
     }
 })
+window.addEventListener('touchend', e => {
+    const target = e.target?.id.split('Header')[0];
+    if(pages.includes(target)){
+        let newCurrentPage = 0;
+        if(target === 'projects') newCurrentPage = window.innerHeight + 1;
+        else if(target === 'about') newCurrentPage = window.innerHeight * 2 + 1;
+        updateCurrentPage(target, newCurrentPage);
+    }
+})
 
 window.addEventListener('click', closeProjectModal);
+window.addEventListener('touchend', closeProjectModal);
 document.addEventListener("keydown", closeProjectModal);
 
 scrollIcon.addEventListener('click', () => {
+    if(isScrolling) {
+        updateCurrentPage(currentPage, currentTop);
+        return;
+    }
+    updateCurrentPage('projects', window.innerHeight + 1);
+    delayScrolling();
+})
+scrollIcon.addEventListener('touchend', () => {
     if(isScrolling) {
         updateCurrentPage(currentPage, currentTop);
         return;
